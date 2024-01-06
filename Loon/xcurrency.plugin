@@ -1,0 +1,10 @@
+#!name=极简汇率
+#!desc=极简汇率VIP
+#!author=@chxm1023
+#!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Final.png
+
+[Script]
+http-response ^https?:\/\/(xremit\.xcurrency|explorer.tratao)\.com\/api\/client\/xtool\/vip script-path=https://raw.githubusercontent.com/chxm1023/Rewrite/main/jijianhuilv.js, requires-body=true, tag=极简汇率
+
+[MITM]
+hostname = xremit.xcurrency.com, explorer.tratao.com

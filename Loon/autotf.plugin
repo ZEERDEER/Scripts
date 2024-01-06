@@ -1,0 +1,11 @@
+#!name=自动加入TestFlight
+#!desc=自动加入TestFlight
+#!author=
+#!icon=https://raw.githubusercontent.com/Orz-3/mini/master/Color/testflight.png
+
+[Script]
+http-request ^https:\/\/testflight\.apple\.com\/v3\/accounts/.*\/apps$ script-path=https://raw.githubusercontent.com/DecoAri/JavaScript/main/Surge/TF_keys.js, requires-body=true, timeout=10, tag=TestFlight
+cron "*/10 * * * * *" script-path=https://raw.githubusercontent.com/DecoAri/JavaScript/main/Surge/Auto_join_TF.js, timeout=180
+
+[MITM]
+hostname = testflight.apple.com
