@@ -1,0 +1,9 @@
+#!name=FIMO
+#!desc=FIMO全滤镜解锁
+#!icon=
+
+[Script]
+http-response ^https?:\/\/server\.zbisq\.com\/fimo-user script-path=https://github.com/ddgksf2013/MoYu/raw/master/FimoProCrack.js, requires-body=true, timeout=60, tag=FimoProCrack
+
+[MITM]
+hostname = server.zbisq.com
