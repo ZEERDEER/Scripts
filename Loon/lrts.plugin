@@ -5,7 +5,7 @@
 
 [Script]
 # > 懒人听书vip
-http-response ^https?:\/\/(shapi|gzapi).mting.info\/yyting\/(usercenter\/ThirdPartyLogin|userclient\/ClientGetUserInfo).action script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/lrts.js, requires-body=true, timeout=60, tag=lrts
+http-response ^https?:\/\/(shapi|gzapi).mting.info\/yyting\/(usercenter\/ThirdPartyLogin|userclient\/ClientGetUserInfo).action script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/lrts.js, requires-body=true, timeout=60, tag=懒人听书
 
 [MITM]
 hostname = gzapi.mting.info, shapi.mting.info
