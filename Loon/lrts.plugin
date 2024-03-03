@@ -1,0 +1,10 @@
+#!name=懒人听书
+#!desc=懒人听书vip
+#!author=@weiren
+#!icon=https://is1-ssl.mzstatic.com/image/thumb/Purple116/v4/84/e8/ac/84e8ace2-8eac-9a09-06a2-a43cbd1dddb4/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/230x0w.webp
+
+[Script]
+http-response https://api.github.com/graphql script-path=https://raw.githubusercontent.com/Yu9191/Rewrite/main/Github.js, requires-body=true, tag=GitHub
+
+[MITM]
+hostname = api.github.com
