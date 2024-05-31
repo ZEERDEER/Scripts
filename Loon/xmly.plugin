@@ -1,7 +1,6 @@
 #!name = 喜马拉雅VIP
 #!desc = 会员,音效&音质,去广告,界面优化+++
 #!icon = https://raw.githubusercontent.com/Orz-3/mini/master/Color/ximalaya.png
-#!date = 2024-05-27
 
 [Rewrite]
 # > 去广告,
