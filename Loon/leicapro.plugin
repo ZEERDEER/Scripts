@@ -1,0 +1,17 @@
+#!name=Leica Pro
+#!desc=Leica Pro
+#!author=𝐝𝐝𝐠𝐤𝐬𝐟𝟐𝟎𝟏𝟑
+#!icon=https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/6a/72/e4/6a72e446-0f60-1fa4-3226-f2831cbe2769/AppIcon-0-1x_U007ephone-0-0-85-220-0.png/246x0w.webp
+#!unlockapplist=https://appraven.net/collection/77299969
+#!tgchannel=https://t.me/ddgksf2021
+#!moduleUrl=https://github.com/ddgksf2013/Modules/raw/main/RevenueCat.Vip.sgmodule
+#!howtouse=小火箭、Surge用户直接添加模块，QuantumultX用户添加重写时打开解析器
+
+[Script]
+# ～ RevenueCat@ddgksf2013
+http-response ^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$) script-path=https://gist.githubusercontent.com/ddgksf2013/dbb1695cd96743eef18f3fac5c6fe227/raw/revenuecat.js, requires-body=true, timeout=60, tag=RevenueCatVip
+
+http-request ^https:\/\/api\.revenuecat\.com\/.+\/(receipts|subscribers) script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/deleteHeader.js, timeout=60, tag=RevenueCatDeleteHeader
+
+[MITM]
+hostname = api.revenuecat.com
