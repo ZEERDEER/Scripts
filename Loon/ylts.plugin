@@ -1,0 +1,22 @@
+#!name=月亮听书 VIP
+#!desc=月亮听书 VIP
+#!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1062.png
+
+[Rewrite]
+# > 去广告
+^https?://case-cdn\.oceanplayable\.com - reject
+^https?://ios\.bugly\.qq\.com - reject
+^https?://ulogs\.um.*\.com - reject
+^https?://token\.safebrowsing\.apple - reject
+^https?://toblog\.ctobsnssdk\.com - reject
+
+[Script]
+# > 月亮听书 解锁付费听书购买
+http-response ^https?:\/\/www.yueliangfm.com\/v4\/api\/(getUserInfo|buyBook|book\?bookId) script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/ylts.js, requires-body=true, timeout=60, tag=ylts
+
+http-request ^https?:\/\/www.yueliangfm.com\/v4\/api\/(chapter\?bookId|getChapterUrl).*$ script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/ylts1.js, timeout=60, tag=ylts1
+
+http-request ^https?:\/\/www.yueliangfm.com\/v4\/api\/(buyChapter|batchBuyChapter|buyCard).*$ script-path=https://raw.githubusercontent.com/WeiGiegie/666/main/ylts2.js, requires-body=true, timeout=60, tag=ylts2
+
+[MITM]
+hostname = www.yueliangfm.com, ios.bugly.qq.com, ulogs.umeng.com, ulogs.umengcloud.com, *toutiao.com, toblog.ctobsnssdk.com, token.safebrowsing.apple
