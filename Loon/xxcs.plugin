@@ -1,17 +1,19 @@
 #!name=小象超市
 #!desc=美团APP -> 小象超市 -> 我的 -> 买菜币 -> 左滑一半做退出手势再松手（不要真的退出了）-> 提示成功即可
+#!author=ZEERDEER
 #!icon=https://p2.itc.cn/q_70/images03/20231204/7fdfcde9201941e79fc454a3cceb5428.png
 
+
 [Argument]
-GetCookie = switch,true,tag=自动获取Cookie,desc=是否启用自动获取Cookie功能
-Cron = input,0 6,8 * * *,tag=定时任务时间,desc=设置签到任务的执行时间
+GetCookie = switch,true,tag=获取Cookie开关,desc=自动获取小象超市Cookie
+CronTime = input,"0 6,8 * * *",tag=定时任务时间,desc=设置签到任务的执行时间
 
 [Script]
 # Cookie获取
-http-request ^https?:\/\/mall\.meituan\.com\/api\/c\/mallcoin\/checkIn\/queryTaskListInfoV.\? script-path=https://raw.githubusercontent.com/ZEERDEER/Scripts/refs/heads/main/js/xxcsck.js, tag=小象超市Cookie获取, timeout=60, argument="GetCookie=true&Cron=0 6,8 * * *"
+http-request ^https?:\/\/mall\.meituan\.com\/api\/c\/mallcoin\/checkIn\/queryTaskListInfoV.\? script-path=https://raw.githubusercontent.com/ZEERDEER/Scripts/refs/heads/main/js/xxcsck.js, requires-body=false, timeout=60, tag=小象超市Cookie获取, argument=[{GetCookie}]
 
 # 定时任务
-cron script-path=https://raw.githubusercontent.com/ZEERDEER/Scripts/refs/heads/main/js/xxcsrw.js, tag=小象超市任务, timeout=300, argument="GetCookie=true&Cron=0 6,8 * * *"
+cron {CronTime} script-path=https://raw.githubusercontent.com/ZEERDEER/Scripts/refs/heads/main/js/xxcsrw.js, timeout=300, tag=小象超市任务, argument=[{GetCookie}], enable=true
 
 [MITM]
 hostname = mall.meituan.com
