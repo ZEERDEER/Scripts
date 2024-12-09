@@ -1,7 +1,7 @@
 #!name=小象超市
 #!desc=美团APP -> 小象超市 -> 我的 -> 买菜币 -> 左滑一半做退出手势再松手（不要真的退出了）-> 提示成功即可
 #!author=ZEERDEER
-#!icon=https://p2.itc.cn/q_70/images03/20231204/7fdfcde9201941e79fc454a3cceb5428.png
+#!icon=https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/iMaiCai.png
 
 
 [Argument]
