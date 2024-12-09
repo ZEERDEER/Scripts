@@ -6,7 +6,7 @@
 
 [Argument]
 GetCookie = switch,true,tag=获取Cookie开关,desc=自动获取小象超市Cookie
-CronTime = input,"0 6,8 * * *",tag=定时任务时间,desc=设置签到任务的执行时间
+CronTime = input,"* 6,8 * * *",tag=定时任务时间,desc=设置签到任务的执行时间
 
 [Script]
 # Cookie获取
