@@ -13,7 +13,7 @@ CronTime = input,"* 6,8 * * * *",tag=定时任务时间,desc=设置签到任务�
 http-request ^https?:\/\/mall\.meituan\.com\/api\/c\/mallcoin\/checkIn\/queryTaskListInfoV.\? script-path=https://raw.githubusercontent.com/ZEERDEER/Scripts/refs/heads/main/js/xxcsck.js, requires-body=false, timeout=60, tag=小象超市Cookie获取, argument=[{GetCookie}]
 
 # 定时任务
-cron {CronTime} script-path=https://raw.githubusercontent.com/ZEERDEER/Scripts/refs/heads/main/js/xxcsrw.js, timeout=300, tag=小象超市任务, argument=[{CronTime}]
+cron "CronTime" script-path=https://raw.githubusercontent.com/ZEERDEER/Scripts/refs/heads/main/js/xxcsrw.js, timeout=300, tag=小象超市任务
 
 [MITM]
 hostname = mall.meituan.com
