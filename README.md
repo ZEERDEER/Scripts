@@ -1,1 +1,1 @@
-### Loon & QuantumultX
+# 🎈 Loon
