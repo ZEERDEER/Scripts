@@ -8,7 +8,7 @@
 const modifiedHeaders = (headers) => {
   let newHeaders = headers;
 
-  // 修改 x-emby-authorization （全部小写）
+  // 修改 x-emby-authorization
   if (newHeaders['x-emby-authorization']) {
     newHeaders['x-emby-authorization'] = newHeaders['x-emby-authorization'].replace(/Client="[^"]*"/, 'Client="Emby"').replace(/Version="[^"]*"/, 'Version="2.0.0"');
   } else {
