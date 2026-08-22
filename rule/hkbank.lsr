@@ -30,3 +30,9 @@ DOMAIN,app-measurement.com,HKBank
 # Wise
 DOMAIN,api.mixpanel.com,HKBank
 DOMAIN-SUFFIX,wise.com,HKBank
+
+# BOCHK
+DOMAIN-KEYWORD,bochk
+
+# Telegram WalletBot
+DOMAIN-KEYWORD,walletbot
