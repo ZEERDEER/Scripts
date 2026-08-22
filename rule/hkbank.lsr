@@ -1,0 +1,32 @@
+# > >> HK Bank
+
+# HSBC
+DOMAIN,c-hsbc.lytics.io,HKBank
+DOMAIN,mobile.eum-appdynamics.com,HKBank
+DOMAIN,tags.tiqcdn.com,HKBank
+DOMAIN,hsbc.edge.sdk.awswaf.com,HKBank
+DOMAIN,cdnbc.wup.hsbc.com.hk,HKBank
+DOMAIN,cdn.optimizely.com,HKBank
+DOMAIN,log-58144bf0.we-stats.com,HKBank
+DOMAIN-SUFFIX,tealiumiq.com,HKBank
+DOMAIN-SUFFIX,hsbc.com.hk,HKBank
+DOMAIN-SUFFIX,online-metrix.net,HKBank
+DOMAIN-SUFFIX,cloud1.vv1865.com,HKBank
+DOMAIN-SUFFIX,liveperson.net,HKBank
+DOMAIN-SUFFIX,lpsnmedia.net,HKBank
+
+# 大象银行
+DOMAIN-SUFFIX,eleHKBank.com,HKBank
+DOMAIN-SUFFIX,appsflyersdk.com,HKBank
+# DOMAIN-WILDCARD,api*.futunn.com,HKBank
+
+# 众安银行
+DOMAIN-SUFFIX,za.group,HKBank
+DOMAIN-SUFFIX,zainvest.group,HKBank
+DOMAIN-SUFFIX,crashlytics.com,HKBank
+DOMAIN-SUFFIX,zajourney.com,HKBank
+DOMAIN,app-measurement.com,HKBank
+
+# Wise
+DOMAIN,api.mixpanel.com,HKBank
+DOMAIN-SUFFIX,wise.com,HKBank
