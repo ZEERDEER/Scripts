@@ -1,7 +1,7 @@
 #!name=知乎去广告
 #!desc=移除知乎App及网页版的开屏广告、信息流广告、回答底部卡片、悬浮窗、会员弹窗，移除HTTPDNS/QUIC配置，精简顶部Tab标签与“我的”页面。
 #!author=奶思 & 可莉 (由AI融合版)
-#!icon=https://raw.githubusercontent.com/ZEERDEER/Scripts/main/Zhihu/zhihu.jpg
+#!icon=https://raw.githubusercontent.com/ZEERDEER/Scripts/main/Loon/icons/zhihu.jpg
 
 [Rule]
 # 分流拦截
