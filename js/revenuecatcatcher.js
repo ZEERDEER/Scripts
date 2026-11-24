@@ -32,9 +32,10 @@ if (typeof $response === 'undefined') {
       var subtitle = null;
 
       if (url.indexOf('product_entitlement_mapping') !== -1) {
-        // 产品 ID → 权益名
+        // 产品 ID → 权益名；映射存起来，供套餐那条直接给出填写值
         title = 'RC 产品 ↔ 权益';
         var map = obj.product_entitlement_mapping || obj;
+        var entSet = {};
         Object.keys(map).forEach(function (pid) {
           var v = map[pid];
           var ent;
@@ -44,22 +45,56 @@ if (typeof $response === 'undefined') {
             else if (v.entitlements) ent = v.entitlements;
             else ent = JSON.stringify(v);
           } else ent = v;
+          if (ent) entSet[ent] = 1;
           lines.push(pid + ' → ' + ent);
         });
+        try { $persistentStore.write(JSON.stringify(map), 'rc_mapping_json'); } catch (e7) {}
+        var entKeys = Object.keys(entSet);
+        if (entKeys.length === 1) lines.push('name 填 ' + entKeys[0]);
       } else if (url.indexOf('/offerings') !== -1) {
         // 套餐与包：每种产品只列一行短格式（$rc_annual → 产品 ID），通知不用展开就能看全；
-        // 同一个产品在多个套餐里出现时只留一行
+        // 同一个产品在多个套餐里出现时只留一行；最后直接给出填写值
         title = 'RC 套餐 offerings';
         var seen = {};
+        var prods = [];
         (obj.offerings || []).forEach(function (o) {
           (o.packages || []).forEach(function (p) {
             var pid = p.platform_product_identifier || '';
             if (pid && !seen[pid]) {
               seen[pid] = 1;
-              lines.push((p.identifier || '') + ' → ' + pid);
+              prods.push({ pkg: p.identifier || '', pid: pid });
             }
           });
         });
+        prods.forEach(function (pr) { lines.push(pr.pkg + ' → ' + pr.pid); });
+        // 从之前抓到的映射里找权益名
+        var fillName = '';
+        try {
+          var mRaw = $persistentStore.read('rc_mapping_json');
+          if (mRaw) {
+            var mObj = JSON.parse(mRaw);
+            var entSet2 = {};
+            Object.keys(mObj).forEach(function (pid) {
+              var v = mObj[pid];
+              var e = null;
+              if (v && typeof v === 'object') {
+                if (v.entitlement) e = v.entitlement;
+                else if (Array.isArray(v.entitlements) && v.entitlements.length) e = v.entitlements[0];
+                else if (v.entitlements) e = v.entitlements;
+              } else if (v) e = v;
+              if (e) entSet2[e] = 1;
+            });
+            var ek = Object.keys(entSet2);
+            if (ek.length === 1) fillName = ek[0];
+          }
+        } catch (e8) {}
+        // 推荐 appid：年付优先，其次终身，否则第一个
+        var rec = '';
+        prods.forEach(function (pr) { if (!rec && pr.pkg.indexOf('annual') !== -1) rec = pr.pid; });
+        if (!rec) prods.forEach(function (pr) { if (!rec && pr.pkg.indexOf('lifetime') !== -1) rec = pr.pid; });
+        if (!rec && prods.length) rec = prods[0].pid;
+        if (fillName) lines.push('name 填 ' + fillName);
+        if (rec) lines.push('appid 填 ' + rec);
         if (obj.current_offering_id) subtitle = host + ' · 当前 ' + obj.current_offering_id;
       } else if (url.indexOf('/products') !== -1) {
         // 产品列表
@@ -96,7 +131,6 @@ if (typeof $response === 'undefined') {
       try { $persistentStore.write(trunc(raw, 8000), 'rc_catcher_last_json'); } catch (e2) {}
       // 把抓到的内容写进脚本日志：点通知进来的记录页 Log 区就能看到完整内容
       try { console.log('[RC] ' + title + '\n' + summary.join('\n')); } catch (e4) {}
-      try { console.log('[RC] 原始响应: ' + trunc(raw, 4000)); } catch (e5) {}
       $notification.post(title, subtitle || (host + ' · ' + lines.length + ' 条'), summary.join('\n') || '无内容');
     } catch (e) {
       try { console.log('[RC] 解析失败: ' + trunc(String((e && e.message) || e), 500)); } catch (e6) {}
