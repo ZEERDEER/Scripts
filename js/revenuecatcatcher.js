@@ -94,8 +94,12 @@ if (typeof $response === 'undefined') {
 
       try { $persistentStore.write(summary.join('\n'), 'rc_catcher_last'); } catch (e1) {}
       try { $persistentStore.write(trunc(raw, 8000), 'rc_catcher_last_json'); } catch (e2) {}
+      // 把抓到的内容写进脚本日志：点通知进来的记录页 Log 区就能看到完整内容
+      try { console.log('[RC] ' + title + '\n' + summary.join('\n')); } catch (e4) {}
+      try { console.log('[RC] 原始响应: ' + trunc(raw, 4000)); } catch (e5) {}
       $notification.post(title, subtitle || (host + ' · ' + lines.length + ' 条'), summary.join('\n') || '无内容');
     } catch (e) {
+      try { console.log('[RC] 解析失败: ' + trunc(String((e && e.message) || e), 500)); } catch (e6) {}
       try { $notification.post('RC 抓取', '解析失败', trunc(String((e && e.message) || e), 200)); } catch (e3) {}
     }
   }
