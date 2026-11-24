@@ -4,7 +4,7 @@
 #!author=Takagivegeta
 
 [Script]
-http-response https://api.revenuecat.com/v1/(receipts|subscribers)/* script-path=https://raw.githubusercontent.com/ZEERDEER/Scripts/main/KocoWidgets/koco.js,requires-body=1,max-size=0
+http-response https://api.revenuecat.com/v1/(receipts|subscribers)/* script-path=https://raw.githubusercontent.com/ZEERDEER/Scripts/main/js/koco.js,requires-body=1,max-size=0
 
 [MITM]
 hostname = api.revenuecat.com
