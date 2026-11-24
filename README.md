@@ -4,7 +4,7 @@
 
 ## 结构
 
-- `Loon/`：全部 Loon 插件（`.plugin` / `.lpx`）与 `Loon.conf`
+- `Loon/`：全部 Loon 插件（`.plugin` / `.lpx`）
   - `icons/`：插件图标
 - `js/`：全部脚本文件
 - `Scriptable/py-scripts/`：Python 脚本（New API 签到、贴吧签到、Telegram 推送）
