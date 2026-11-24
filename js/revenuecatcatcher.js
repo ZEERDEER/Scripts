@@ -14,9 +14,10 @@ function trunc(s, n) {
 }
 
 var raw = ($response && $response.body) || '';
-if (raw) {
+var url = ($request && $request.url) || '';
+// attributes 接口只上报用户属性、返回 {}，不带任何订阅信息，直接放过
+if (raw && url.indexOf('/attributes') === -1) {
   try {
-    var url = ($request && $request.url) || '';
     var host = url.indexOf('rc-backup') !== -1 ? 'api.rc-backup.com' : 'api.revenuecat.com';
     var obj = JSON.parse(raw);
     var title = 'RC 抓取';
