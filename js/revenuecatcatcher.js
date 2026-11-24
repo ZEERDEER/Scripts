@@ -29,6 +29,7 @@ if (typeof $response === 'undefined') {
       var obj = JSON.parse(raw);
       var title = 'RC 抓取';
       var lines = [];
+      var subtitle = null;
 
       if (url.indexOf('product_entitlement_mapping') !== -1) {
         // 产品 ID → 权益名
@@ -36,18 +37,30 @@ if (typeof $response === 'undefined') {
         var map = obj.product_entitlement_mapping || obj;
         Object.keys(map).forEach(function (pid) {
           var v = map[pid];
-          var ent = (v && typeof v === 'object') ? (v.entitlement || JSON.stringify(v)) : v;
+          var ent;
+          if (v && typeof v === 'object') {
+            if (v.entitlement) ent = v.entitlement;
+            else if (Array.isArray(v.entitlements)) ent = v.entitlements.join(', ');
+            else if (v.entitlements) ent = v.entitlements;
+            else ent = JSON.stringify(v);
+          } else ent = v;
           lines.push(pid + ' → ' + ent);
         });
       } else if (url.indexOf('/offerings') !== -1) {
-        // 套餐与包：offering / package → 实际产品 ID
+        // 套餐与包：每种产品只列一行短格式（$rc_annual → 产品 ID），通知不用展开就能看全；
+        // 同一个产品在多个套餐里出现时只留一行
         title = 'RC 套餐 offerings';
+        var seen = {};
         (obj.offerings || []).forEach(function (o) {
           (o.packages || []).forEach(function (p) {
-            lines.push((o.identifier || '') + ' / ' + (p.identifier || '') + ' → ' + (p.platform_product_identifier || ''));
+            var pid = p.platform_product_identifier || '';
+            if (pid && !seen[pid]) {
+              seen[pid] = 1;
+              lines.push((p.identifier || '') + ' → ' + pid);
+            }
           });
         });
-        if (obj.current_offering_id) lines.push('当前套餐: ' + obj.current_offering_id);
+        if (obj.current_offering_id) subtitle = host + ' · 当前 ' + obj.current_offering_id;
       } else if (url.indexOf('/products') !== -1) {
         // 产品列表
         title = 'RC 产品列表';
@@ -81,7 +94,7 @@ if (typeof $response === 'undefined') {
 
       try { $persistentStore.write(summary.join('\n'), 'rc_catcher_last'); } catch (e1) {}
       try { $persistentStore.write(trunc(raw, 8000), 'rc_catcher_last_json'); } catch (e2) {}
-      $notification.post(title, host + ' · ' + lines.length + ' 条', summary.join('\n') || '无内容');
+      $notification.post(title, subtitle || (host + ' · ' + lines.length + ' 条'), summary.join('\n') || '无内容');
     } catch (e) {
       try { $notification.post('RC 抓取', '解析失败', trunc(String((e && e.message) || e), 200)); } catch (e3) {}
     }
